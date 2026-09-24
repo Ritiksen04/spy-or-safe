@@ -33,6 +33,7 @@ input:focus,select:focus,button:focus-visible{outline:3px solid #e8b94f99;outlin
 .progress{height:5px;background:#101927;border-radius:99px;overflow:hidden;margin:-2px 0 14px}.progress i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--red),var(--gold));transition:width .35s}
 .code{font:900 clamp(45px,12vw,72px)/1 var(--mono);letter-spacing:9px;text-align:center;color:var(--gold);text-shadow:0 0 30px #e8b94f22;margin:7px 0 14px}
 .sb{display:flex;flex-wrap:wrap;gap:7px}.pl{background:#070d15;border:1px solid #26364c;border-radius:99px;padding:7px 11px;font-size:13px}.pl.me{border-color:var(--gold)}.pl.off{opacity:.45}.pl b{color:var(--gold);margin-left:6px}
+.pfp{display:inline-grid;place-items:center;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:2px solid #ffffff30;box-shadow:0 4px 14px #0008;overflow:hidden;vertical-align:middle;font:inherit;font-size:21px;line-height:1;background:linear-gradient(145deg,#26384f,#0e1723);user-select:none}.pfp.sm{width:32px;height:32px;font-size:18px}.pfp.p0{background:linear-gradient(145deg,#402f72,#171d3c)}.pfp.p1{background:linear-gradient(145deg,#1e5366,#102936)}.pfp.p2{background:linear-gradient(145deg,#694a25,#292016)}.pfp.p3{background:linear-gradient(145deg,#3b5f3b,#172b20)}.pfp.p4{background:linear-gradient(145deg,#713b53,#2b1722)}.pfp.p5{background:linear-gradient(145deg,#4c5d7c,#1a2437)}.pfp.p6{background:linear-gradient(145deg,#66512a,#29200f)}.pfp.p7{background:linear-gradient(145deg,#354f70,#151e2b)}.playerLine{display:inline-flex;align-items:center;gap:8px}.vt .playerLine{min-width:0}.vt .playerLine .name{overflow:hidden;text-overflow:ellipsis}.leaderLine{display:flex;align-items:center;gap:10px}
 .dossier{position:relative;overflow:hidden;background:linear-gradient(145deg,#f0e7d0,#cfc3a5);color:#1b1811;border-radius:13px;padding:25px 18px;margin:16px 0;text-align:center;box-shadow:0 0 0 5px #070d15,0 0 0 7px #34445b,0 22px 55px #0007;transform:rotate(-.5deg)}
 .dossier:before{content:"TOP SECRET";position:absolute;right:-25px;top:17px;transform:rotate(8deg);border:2px solid #b8173566;color:#b817357a;padding:3px 9px;font:900 10px var(--mono)}
 .dossier .big{font:900 clamp(35px,8vw,58px)/1 var(--mono);text-transform:uppercase;margin:13px 0;word-break:break-word}.dossier .spy{display:inline-block;border:4px solid var(--red2);color:var(--red2);padding:6px 12px;transform:rotate(-3deg);font-size:clamp(25px,6vw,38px)}
@@ -41,8 +42,39 @@ input:focus,select:focus,button:focus-visible{outline:3px solid #e8b94f99;outlin
 .row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #26364a}.row:last-child{border:0}
 .good{color:var(--green)}.bad{color:#ff7183}.err{padding:9px 11px;background:#2a1117;border:1px solid #6d2b38;color:#ffb4bf;border-radius:10px}.off{padding:9px;text-align:center;background:#2a1117;color:#ffb4bf;border:1px solid #6d2b38;border-radius:10px;margin-bottom:9px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.or{text-align:center;color:var(--muted);margin:10px}.how{padding-left:21px;color:var(--muted)}.how li{margin:7px 0}
+
+.joinPanel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;padding:12px;border:1px solid #ffffff10;border-radius:16px;background:#070d15aa}.field label{display:block;color:var(--gold);font:900 10px var(--mono);letter-spacing:1.5px;margin:2px 2px 5px}.field input{margin:0}.actionRow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}.actionRow button{min-height:56px;font:900 15px var(--mono);letter-spacing:.5px}.actionHint{text-align:center;color:var(--muted);font-size:12px;margin-top:4px}.actionHint b{color:var(--gold)}
 .modal{position:fixed;inset:0;background:#02050bcc;display:grid;place-items:center;padding:18px;z-index:50;backdrop-filter:blur(8px)}.modalBox{width:min(650px,100%);max-height:90vh;overflow:auto;background:#0d1521;border:1px solid #ffffff16;border-radius:22px;padding:20px;box-shadow:0 30px 100px #000b}.close{width:auto;float:right;min-height:40px;padding:7px 12px}
-@media(max-width:700px){.heroGrid,.rules{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.art{height:210px}.hero{padding:16px}.kpis{grid-template-columns:1fr 1fr 1fr}}
+
+/* Mission-control polish */
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.035;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#fff 4px);mix-blend-mode:overlay}
+.hero,.card,.feature,.rule,.joinPanel{will-change:transform}
+.hero{animation:heroIn .65s cubic-bezier(.2,.8,.2,1) both}
+.hero:before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:1px;background:linear-gradient(115deg,transparent 15%,#ff365533 42%,#e8b94f55 55%,transparent 78%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:borderSweep 5s linear infinite;pointer-events:none}
+.art{animation:artFloat 5s ease-in-out infinite}
+.kpi{transition:.25s;animation:rise .5s both}.kpi:nth-child(2){animation-delay:.08s}.kpi:nth-child(3){animation-delay:.16s}.kpi:hover{transform:translateY(-4px);border-color:#e8b94f55;box-shadow:0 10px 28px #0006}
+.feature{transition:.25s;position:relative;overflow:hidden}.feature:after{content:"";position:absolute;top:-80%;left:-20%;width:30%;height:260%;background:linear-gradient(90deg,transparent,#fff2,transparent);transform:rotate(18deg);animation:cardShine 6s ease-in-out infinite}.feature:hover,.rule:hover{transform:translateY(-5px);border-color:#ffffff25;box-shadow:0 18px 40px #0006}
+button{overflow:hidden}button:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff2 48%,transparent 66%);transform:translateX(-120%);transition:transform .45s;pointer-events:none}button:hover:not(:disabled):before{transform:translateX(120%)}button.pri{animation:buttonPulse 3.2s ease-in-out infinite}
+.code{animation:codePulse 2.4s ease-in-out infinite}
+.pfp{transition:.25s;animation:avatarIn .45s both}.pfp:hover{transform:translateY(-3px) rotate(-5deg) scale(1.08);box-shadow:0 8px 22px #0009}
+.dossier{animation:dossierIn .6s cubic-bezier(.2,.9,.2,1) both}.dossier:after{content:"";position:absolute;left:-35%;top:-20%;width:25%;height:150%;background:linear-gradient(90deg,transparent,#fff8,transparent);transform:rotate(15deg);animation:paperScan 3.5s ease-in-out infinite}
+.vt{transition:.22s}.vt:not(.sel):hover{transform:translateX(5px);border-color:#ff365566}
+.progress i{box-shadow:0 0 14px #ff365577}
+.gameExit{width:auto!important;min-height:38px!important;margin:0!important;padding:7px 12px!important;border-color:#71303d!important;background:#1b1118!important;color:#ff9aaa!important;font:900 11px var(--mono)!important;letter-spacing:1px}
+.gameExit:hover:not(:disabled){border-color:#ff536e!important;color:#fff!important;background:#35131d!important}
+.missionHd{display:flex;align-items:center;gap:10px;min-width:0}.missionHd .room{white-space:nowrap}.missionHd .phase{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hd{position:relative}.hd:after{content:"SECURE CHANNEL";position:absolute;left:50%;transform:translateX(-50%);bottom:-4px;color:#ffffff22;font:900 8px var(--mono);letter-spacing:3px;pointer-events:none}
+.leaveBox{text-align:center}.leaveBox .danger{margin-top:10px;background:linear-gradient(135deg,#7f1830,#c52b49);border-color:#ff6278}
+@keyframes heroIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes borderSweep{to{transform:rotate(360deg)}}
+@keyframes artFloat{50%{transform:translateY(-7px) rotate(.4deg)}}
+@keyframes cardShine{0%,55%{left:-35%}75%,100%{left:125%}}
+@keyframes buttonPulse{0%,100%{box-shadow:0 12px 35px #ff365530}50%{box-shadow:0 12px 45px #ff365566}}
+@keyframes codePulse{50%{text-shadow:0 0 42px #e8b94f66;transform:scale(1.015)}}
+@keyframes avatarIn{from{opacity:0;transform:scale(.65) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes dossierIn{from{opacity:0;transform:translateY(18px) rotate(-3deg) scale(.97)}to{opacity:1;transform:rotate(-.5deg) scale(1)}}
+@keyframes paperScan{0%,100%{left:-35%;opacity:0}25%{opacity:.65}55%{left:125%;opacity:0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+@media(max-width:700px){.heroGrid,.rules,.joinPanel,.actionRow{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.art{height:210px}.hero{padding:16px}.kpis{grid-template-columns:1fr 1fr 1fr}}
 @media(prefers-reduced-motion:no-preference){.card,.feature,.rule{animation:rise .28s ease-out}.hero:after{content:"";position:absolute;inset:auto -100px -130px;width:300px;height:300px;border-radius:50%;background:#ff36551a;filter:blur(25px);animation:float 7s ease-in-out infinite;pointer-events:none}@keyframes rise{from{opacity:0;transform:translateY(8px)}}@keyframes float{50%{transform:translate(-25px,-18px) scale(1.08)}}.scan{animation:scan 2.8s linear infinite}@keyframes scan{from{stroke-dashoffset:0}to{stroke-dashoffset:120}}}
 </style></head><body><div id="app"></div><script>
 let ws,S,me=null,err='',dl=0,off=false,copied=false;
@@ -69,7 +101,12 @@ function render(){
 }
 setInterval(()=>{const e=$('#tm');if(e)e.textContent=Math.max(0,Math.ceil((dl-Date.now())/1000))},250);
 const mk=()=>tx({t:'create',name:val('nm')}),jn=()=>tx({t:'join',name:val('nm'),code:val('cd')});
-const leave=()=>{localStorage.removeItem('sos');location.href='/'};
+const leave=()=>{localStorage.removeItem('sos');S=null;location.href='/'};
+function confirmLeave(){
+  if(!S)return leave();
+  const old=document.getElementById('leaveModal'); if(old)old.remove();
+  document.body.insertAdjacentHTML('beforeend',`<div class="modal" id="leaveModal"><div class="modalBox leaveBox"><div class="eyebrow">SECURE EXIT</div><h2>Leave this mission?</h2><p class="dim">You will leave room <b>${esc(S.code)}</b>. Your current session on this device will be cleared.</p><div class="grid2"><button onclick="document.getElementById('leaveModal').remove()">Stay</button><button class="danger" onclick="leave()">Exit room</button></div></div></div>`);
+}
 
 const spyArt=()=>`<svg viewBox="0 0 420 210" role="img" aria-label="Spy silhouette illustration">
 <defs><linearGradient id="coat" x1="0" x2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#27364b"/></linearGradient>
@@ -117,16 +154,17 @@ const rulesModal=()=>`<div class="modal" id="rulesModal"><div class="modalBox"><
 <div class="rule"><span class="num">01</span><br><b>Receive a role</b><br><span class="dim">Safe players see the secret word. The Spy sees only the category.</span></div>
 <div class="rule"><span class="num">02</span><br><b>Give one clue</b><br><span class="dim">Keep it short. Too obvious helps the Spy; too vague makes you suspicious.</span></div>
 <div class="rule"><span class="num">03</span><br><b>Read the room</b><br><span class="dim">Compare every clue and watch for the player who sounds like they're fishing.</span></div>
-<div class="rule"><span class="num">04</span><br><b>Vote</b><br><span class="dim">Everyone chooses one suspect. The most-voted player is caught if there is a unique majority.</span></div>
+<div class="rule"><span class="num">04</span><br><b>Vote</b><br><span class="dim">3–8 players: the unique top-voted player is caught. In a 2-player Duel, the Safe player's vote decides.</span></div>
 <div class="rule"><span class="num">05</span><br><b>Final guess</b><br><span class="dim">A caught Spy gets one shot at the secret word. Correct means the Spy steals the round.</span></div>
-<div class="rule"><span class="num">06</span><br><b>Score</b><br><span class="dim">Spy escapes: +3. Spy caught and guesses correctly: +2. Each Safe player who votes the Spy: +2.</span></div>
+<div class="rule"><span class="num">06</span><br><b>Score</b><br><span class="dim">Spy escapes: +3. A caught Spy who guesses correctly: +2. Each Safe player who votes the Spy: +2. A tied vote gives the Spy a word guess; no one is eliminated.</span></div>
 </div>
-<div class="card"><b>2-player Duel</b><p class="dim">With exactly two players, the game switches to a dedicated 1v1 variant so the match stays playable and competitive.</p></div>
+<div class="card"><b>2-player Duel</b><p class="dim">With exactly two players, one is the Spy and one is Safe. Both give a clue; the Safe player's vote decides whether the Spy is caught. A caught Spy gets the final word guess.</p></div>
 <button class="pri" onclick="closeRules()">Ready for the mission</button></div></div>`;
 function openRules(){document.body.insertAdjacentHTML('beforeend',rulesModal())}
 function closeRules(){document.getElementById('rulesModal')?.remove()}
 function home(){
- const q=new URLSearchParams(location.search).get('room')||'';
+ const q=String(new URLSearchParams(location.search).get('room')||'').toUpperCase().trim();
+ const message=(typeof err==='string' && err.trim())?`<p class="err">${esc(err)}</p>`:'';
  return `<div class="hero">
   <div class="heroTop"><span class="tag"><span class="live"></span> LIVE · 2–8 AGENTS</span><span class="tag">NO LOGIN</span></div>
   <div class="heroGrid"><div class="heroCopy">
@@ -134,9 +172,18 @@ function home(){
    <p class="dim">Blend in. Read the clues. Catch the undercover player before they crack the word.</p>
    <div class="kpis"><div class="kpi"><b>2–8</b><span>PLAYERS</span></div><div class="kpi"><b>5</b><span>ROUNDS</span></div><div class="kpi"><b>1</b><span>SECRET SPY</span></div></div>
   </div><div class="art">${agentArt()}</div></div>
-  <div class="grid2" style="margin-top:6px"><input id="nm" placeholder="Agent name" maxlength="14" autocomplete="off"><input id="cd" placeholder="Room code" maxlength="6" autocapitalize="characters" autocomplete="off" value="${esc(q.toUpperCase())}"></div>
-  <div class="grid2">${q?'<button class="pri" onclick="jn()">Join mission</button><button onclick="location.href='/'">Create room</button>':'<button class="pri" onclick="mk()">Create mission</button><button onclick="jn()">Join with code</button>'}</div>
-  ${err?`<p class="err">${esc(err)}</p>`:''}
+
+  <div class="joinPanel">
+    <div class="field"><label>AGENT NAME</label><input id="nm" placeholder="Enter your name" maxlength="14" autocomplete="off"></div>
+    <div class="field"><label>ROOM CODE</label><input id="cd" placeholder="Enter 4-letter code" maxlength="6" autocapitalize="characters" autocomplete="off" value="${esc(q)}"></div>
+  </div>
+
+  <div class="actionRow">
+    <button class="pri" type="button" onclick="mk()">CREATE ROOM</button>
+    <button type="button" onclick="jn()">JOIN ROOM</button>
+  </div>
+  <div class="actionHint">Already have a room code? Enter it above and press <b>JOIN ROOM</b>.</div>
+  ${message}
  </div>
  <div class="section"><div class="sectionHead"><span class="eyebrow">THE MISSION</span><button style="width:auto;min-height:38px;padding:7px 12px;margin:0" onclick="openRules()">Rules & scoring</button></div>
   <div class="cards"><div class="feature"><div class="ico">${eyeArt()}</div><b>Get the word</b><p class="dim">Safe agents receive the same secret word. The Spy only sees the category.</p></div>
@@ -147,7 +194,10 @@ function home(){
   <div class="rules"><div class="rule"><span class="num">01</span><br><b>One word. One clue.</b><br><span class="dim">Don't reveal the answer directly.</span></div><div class="rule"><span class="num">02</span><br><b>Find the Spy.</b><br><span class="dim">Use clues and discussion to identify the odd one out.</span></div><div class="rule"><span class="num">03</span><br><b>Spy gets a last chance.</b><br><span class="dim">If caught, guess the word to steal the round.</span></div><div class="rule"><span class="num">04</span><br><b>Highest score wins.</b><br><span class="dim">2-player rooms use the special Duel rules.</span></div></div>
  </div>`;
 }
-function board(){return '<div class="sb">'+[...S.players].sort((a,b)=>b.score-a.score).map(p=>`<span class="pl${p.id===S.me?' me':''}${p.on?'':' off'}${p.done?' ok':''}">${p.done?'✓ ':''}${esc(p.name)}${p.on?'':' (away)'}<b>${p.score}</b></span>`).join('')+'</div>'}
+const avatarSeed=id=>{let h=0;for(let i=0;i<String(id||'').length;i++)h=(h*31+String(id)[i].charCodeAt(0))>>>0;return h};
+const avatarIcons=['🐯','🐼','🦊','🐸','🐨','🐵','🐱','🐶','🐰','🦁','🐻','🐺','🦄','🐙','🦋','🐲','🦝','🐧','🐹','🦉','🐢','🐳','🦖','🐼','🐱','🤖','👽','👻','🍀','⭐'];
+const pfp=(id,name,small=false)=>{const n=avatarSeed(id)%avatarIcons.length;return `<span class="pfp p${n%8}${small?' sm':''}" title="Random avatar: ${avatarIcons[n]}">${avatarIcons[n]}</span>`};
+function board(){return '<div class="sb">'+[...S.players].sort((a,b)=>b.score-a.score).map(p=>`<span class="pl${p.id===S.me?' me':''}${p.on?'':' off'}${p.done?' ok':''}"><span class="playerLine">${pfp(p.id,p.name)}<span class="name">${p.done?'✓ ':''}${esc(p.name)}${p.on?'':' (away)'}</span></span><b>${p.score}</b></span>`).join('')+'</div>'}
 function chip(){return S.spy?`<span class="chip">You're the Spy · ${esc(S.cat)}</span>`:`<span class="chip">${esc(S.cat)} · word: ${esc(S.word)}</span>`}
 function game(){
   const P=S.players.find(p=>p.id===S.me),host=S.host===S.me,live=!['lobby','end'].includes(S.phase);
@@ -161,7 +211,7 @@ function game(){
     <h2>Players (${S.players.length}/8)</h2>${board()}
     ${host?`<div class="card"><label class="dim">Rounds</label><select id="rd"><option>3</option><option selected>5</option><option>8</option></select>
     <button class="pri" ${on<2?'disabled':''} onclick="tx({t:'start',rounds:+val('rd')})">${on<2?'Waiting for 1 more player…':'Start game'}</button></div>`:'<p class="dim">Waiting for the host to start…</p>'}
-    <p class="dim">2 players = Spy Duel · 3–8 players = Standard Spy.</p>`;
+    <p class="dim">2 players = 1v1 Duel: the Safe player's vote decides the round. 3–8 players = Standard Spy.</p>`;
   }else if(S.phase==='role'){
     b=S.spy?`<div class="dossier"><small>CLASSIFIED</small><div class="big spy">You're the Spy</div><p>Category: <b>${esc(S.cat)}</b></p><p>You don't know the word. Listen to the clues and blend in.</p></div>`
     :`<div class="dossier"><small>YOUR SECRET WORD</small><div class="big">${esc(S.word)}</div><p>Category: <b>${esc(S.cat)}</b></p><p>One player doesn't have it. Give a clue that proves you do.</p></div>`;
@@ -169,27 +219,27 @@ function game(){
     b=`${chip()}<h2>Give a one-word clue</h2><p class="dim">${S.spy?'Bluff: guess what the word might be.':'Hint at the word, but not so much that the Spy can guess it.'}</p>`+
     (P.done?`<div class="card good">Clue locked in. Waiting for the others…</div>`:`<input id="cl" maxlength="20" placeholder="Your clue" autocomplete="off" onkeydown="if(event.key==='Enter')clue()"><button class="pri" onclick="clue()">Lock in clue</button>`);
   }else if(S.phase==='vote'){
-    b=`${chip()}<h2>Who is the Spy?</h2><p class="dim">Tap a player to vote. You can change it until everyone has voted.</p>`+
-    S.clues.filter(c=>c.id!==S.me).map(c=>`<button class="vt${S.myVote===c.id?' sel':''}" onclick="tx({t:'vote',id:'${c.id}'})">${nm(c.id)}<span>${esc(c.text)}</span></button>`).join('')+
+    b=`${chip()}<h2>Who is the Spy?</h2><p class="dim">${S.mode==='duel'?'Choose your opponent if you think they are the Spy. The Safe player’s vote decides the Duel.':'Tap a player to vote. You can change it until everyone has voted.'}</p>`+
+    S.clues.filter(c=>c.id!==S.me).map(c=>{const pp=S.players.find(x=>x.id===c.id)||{};return `<button class="vt${S.myVote===c.id?' sel':''}" onclick="tx({t:'vote',id:'${c.id}'})"><span class="playerLine">${pfp(c.id,pp.name,true)}<span class="name">${nm(c.id)}</span></span><span>${esc(c.text)}</span></button>`}).join('')+
     `<p class="dim">Your clue: <b>${esc((S.clues.find(c=>c.id===S.me)||{}).text||'')}</b></p>`;
   }else if(S.phase==='guess'){
-    b=S.res.spy===S.me?`<div class="card"><h2 class="bad">You were caught!</h2><p>Guess the secret word to steal 200 points. Category: <b>${esc(S.cat)}</b></p>
+    b=S.res.spy===S.me?`<div class="card"><h2 class="bad">You were caught!</h2><p>Guess the secret word to earn <b>+2</b> points. Category: <b>${esc(S.cat)}</b></p>
     <input id="gs" maxlength="30" placeholder="The secret word is…" autocomplete="off" onkeydown="if(event.key==='Enter')gs()"><button class="pri" onclick="gs()">Guess</button></div>`
     :`<div class="card"><h2>${nm(S.res.spy)} was the Spy!</h2><p class="dim">They get one last chance to guess the word. Fingers crossed.</p></div>`;
   }else if(S.phase==='reveal'){
     const r=S.res,last=S.round>=S.rounds;
-    b=`<div class="card"><h2>${r.void?'Round voided':nm(r.spy)+(r.caught?' was caught!':' got away!')}</h2>
-    ${r.void?'<p class="dim">The Spy disconnected. No points this round.</p>':`<p>The word was <b>${esc(S.res.word||'')}</b>.${r.guess?` Spy guessed “${esc(r.guess)}” — <b class="${r.ok?'good':'bad'}">${r.ok?'correct, +200':'wrong'}</b>.`:''}</p>`}
-    ${r.void?'':S.clues.map(c=>`<div class="row"><span>${c.id===r.spy?'🕵️ ':''}${nm(c.id)}: <b>${esc(c.text)}</b><br><small class="dim">voted ${r.votes[c.id]?nm(r.votes[c.id]):'no one'}</small></span><b class="${r.gains[c.id]?'good':'dim'}">+${r.gains[c.id]||0}</b></div>`).join('')}</div>`+
+    b=`<div class="card"><h2>${r.void?'Round voided':r.tie?'Vote tied — no one was eliminated.':nm(r.spy)+(r.caught?' was caught!':' got away!')}</h2>
+    ${r.void?'<p class="dim">The Spy disconnected. No points this round.</p>':`<p>The word was <b>${esc(S.res.word||'')}</b>.${r.guess?` Spy guessed “${esc(r.guess)}” — <b class="${r.ok?'good':'bad'}">${r.ok?'correct, +2':'wrong'}</b>.`:''}</p>`}
+    ${r.void?'':S.clues.map(c=>{const pp=S.players.find(x=>x.id===c.id)||{};return `<div class="row"><span class="leaderLine">${pfp(c.id,pp.name,true)}<span>${c.id===r.spy?'🕵️ ':''}${nm(c.id)}: <b>${esc(c.text)}</b><br><small class="dim">voted ${r.votes[c.id]?nm(r.votes[c.id]):'no one'}</small></span></span><b class="${r.gains[c.id]?'good':'dim'}">+${r.gains[c.id]||0}</b></div>`}).join('')}</div>`+
     (host?`<button class="pri" onclick="tx({t:'next'})">${last?'See final results':'Next round'}</button>`:'<p class="dim">Next up shortly…</p>');
   }else if(S.phase==='wait'){b=`<div class="card"><h2>Waiting for players…</h2><p class="dim">The game resumes when at least 2 players are connected.</p></div>`}
   else if(S.phase==='end'){
     const s=[...S.players].sort((a,b)=>b.score-a.score);
-    b=`<h2>Final leaderboard</h2><div class="card">${s.map((p,i)=>`<div class="row"><span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${esc(p.name)}${p.id===S.me?' (you)':''}</span><b class="${i?'':'good'}">${p.score}</b></div>`).join('')}</div>
+    b=`<h2>Final leaderboard</h2><div class="card">${s.map((p,i)=>`<div class="row"><span class="leaderLine">${pfp(p.id,p.name)}<span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${esc(p.name)}${p.id===S.me?' (you)':''}</span></span><b class="${i?'':'good'}">${p.score}</b></div>`).join('')}</div>
     ${host?'<button class="pri" onclick="tx({t:\'again\'})">Play again</button>':'<p class="dim">Waiting for the host to start a rematch…</p>'}<button onclick="leave()">Leave room</button>`;
   }
   const pct=S.rounds?Math.max(0,Math.min(100,(S.round/S.rounds)*100)):0;
-  return `<div class="hd"><span>ROOM <b>${S.code}</b></span><span>${live?`ROUND ${S.round}/${S.rounds} · ${S.phase.toUpperCase()}`:''}</span><span id="tm">${timed?Math.ceil(S.left/1000):''}</span></div>
+  return `<div class="hd"><div class="missionHd"><span class="room">ROOM <b>${S.code}</b></span><span class="phase">${live?`${S.mode==='duel'?'DUEL · ':''}ROUND ${S.round}/${S.rounds} · ${S.phase.toUpperCase()}`:''}</span></div><span id="tm">${timed?Math.ceil(S.left/1000):''}</span><button class="gameExit" onclick="confirmLeave()" title="Leave room">EXIT</button></div>
   ${live?`<div class="progress" aria-label="Round progress"><i style="--w:${pct}%"></i></div>`:''}
   ${b}${S.phase==='lobby'||S.phase==='end'?'':board()}${err?`<p class="err">${esc(err)}</p>`:''}`;
 }
